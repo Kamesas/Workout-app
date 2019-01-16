@@ -1,10 +1,10 @@
-import { FETCH_CLIENTS } from "../types";
+import { FETCH_VALUES } from "../types";
 
 const initialState = "";
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case FETCH_CLIENTS:
+    case FETCH_VALUES:
       return payload;
 
     default:

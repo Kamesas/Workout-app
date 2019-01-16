@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import AddForm from "./AddForm/AddForm";
+import LilstOfValues from "./ListOfValue/LilstOfValues";
 
 class App extends Component {
   render() {
@@ -9,6 +10,7 @@ class App extends Component {
         <h3>Workout</h3>
         Alex
         <AddForm />
+        <LilstOfValues />
       </div>
     );
   }

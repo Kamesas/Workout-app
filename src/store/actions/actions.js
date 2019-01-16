@@ -1,18 +1,18 @@
-import { FETCH_CLIENTS, FETCH_USER } from "../types";
+import { FETCH_VALUES, FETCH_USER } from "../types";
 import { firebaseValue, authRef, provider } from "../../config/fbConfig";
 
 export const isToday = () => ({
   type: "IS_TODAY"
 });
 
-export const fetchClients = () => async dispatch => {
-  firebaseValue.on("value", snapshot => {
-    dispatch({ type: FETCH_CLIENTS, payload: snapshot.val() });
-  });
-};
-
 export const addValue = newValue => async dispatch => {
   firebaseValue.push().set(newValue);
+};
+
+export const fetchValues = () => async dispatch => {
+  firebaseValue.on("value", snapshot => {
+    dispatch({ type: FETCH_VALUES, payload: snapshot.val() });
+  });
 };
 
 export const removeClient = removeClientId => async dispatch => {

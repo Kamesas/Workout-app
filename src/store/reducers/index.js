@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import getMoment from "./moment";
-import auth from "./authReducer";
+import values from "./values";
 
 const rootReducer = combineReducers({
   getMoment,
-  auth
+  values
 });
 
 export default rootReducer;
