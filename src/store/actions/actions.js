@@ -1,30 +1,27 @@
 import { FETCH_CLIENTS, FETCH_USER } from "../types";
-import { firebaseClients, authRef, provider } from "../../config/fbConfig";
+import { firebaseValue, authRef, provider } from "../../config/fbConfig";
 
 export const fetchClients = () => async dispatch => {
-  firebaseClients.on("value", snapshot => {
+  firebaseValue.on("value", snapshot => {
     dispatch({ type: FETCH_CLIENTS, payload: snapshot.val() });
   });
 };
 
-export const addClient = newClient => async dispatch => {
-  firebaseClients.push().set(newClient);
+export const addValue = newValue => async dispatch => {
+  firebaseValue.push().set(newValue);
 };
 
 export const removeClient = removeClientId => async dispatch => {
-  firebaseClients.child(removeClientId).remove();
+  firebaseValue.child(removeClientId).remove();
 };
 
 export const updateContact = (id, data) => async dispatch => {
-  return firebaseClients
+  return firebaseValue
     .child(id)
     .update(data)
-    .then(() => firebaseClients.once("value"))
+    .then(() => firebaseValue.once("value"))
     .then(snapshot => snapshot.val())
-    .catch(error => ({
-      errorCode: error.code,
-      errorMessage: error.message
-    }));
+    .catch(error => ({ errorCode: error.code, errorMessage: error.message }));
 };
 
 export const fetchUser = () => dispatch => {

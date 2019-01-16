@@ -9,9 +9,6 @@ class App extends Component {
         <h3>Workout</h3>
         Alex
         <AddForm />
-        <hr />
-        Ruslan
-        <AddForm />
       </div>
     );
   }
