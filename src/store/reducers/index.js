@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import clients from "./clients";
+import getMoment from "./moment";
 import auth from "./authReducer";
 
 const rootReducer = combineReducers({
-  clients,
+  getMoment,
   auth
 });
 

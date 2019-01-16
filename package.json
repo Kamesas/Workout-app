@@ -1,9 +1,10 @@
 {
-  "name": "treaning_app",
+  "name": "workout_app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "firebase": "^5.7.3",
+    "moment": "^2.23.0",
     "node-sass": "^4.11.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",

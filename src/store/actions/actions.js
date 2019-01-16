@@ -1,6 +1,10 @@
 import { FETCH_CLIENTS, FETCH_USER } from "../types";
 import { firebaseValue, authRef, provider } from "../../config/fbConfig";
 
+export const isToday = () => ({
+  type: "IS_TODAY"
+});
+
 export const fetchClients = () => async dispatch => {
   firebaseValue.on("value", snapshot => {
     dispatch({ type: FETCH_CLIENTS, payload: snapshot.val() });
