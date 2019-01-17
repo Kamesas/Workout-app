@@ -2,40 +2,24 @@ import React, { Component } from "react";
 import "./App.css";
 import AddForm from "./AddForm/AddForm";
 import LilstOfValues from "./ListOfValue/LilstOfValues";
-import { fire } from "../config/fbConfig";
 import Login from "./Login/Login";
+import { connect } from "react-redux";
+import { fetchUser, signOut } from "../store/actions/actions";
 
 class App extends Component {
-  state = {
-    user: null
-  };
-
   componentDidMount() {
-    this.authListener();
+    this.props.fetchUser();
   }
 
-  authListener = () => {
-    fire.auth().onAuthStateChanged(user => {
-      console.log(user);
-      if (user) {
-        this.setState({ user });
-        localStorage.setItem("user", user.uid);
-      } else {
-        this.setState({ user: null });
-        localStorage.removeItem("user");
-      }
-    });
-  };
-
   logout = () => {
-    fire.auth().signOut();
+    this.props.signOut();
   };
 
   render() {
     return (
       <div className="App">
         <h3>Workout</h3>
-        {this.state.user ? (
+        {this.props.auth ? (
           <div>
             Alex
             <button onClick={this.logout}>Logout</button>
@@ -50,4 +34,16 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchUser: () => dispatch(fetchUser()),
+  signOut: () => dispatch(signOut())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

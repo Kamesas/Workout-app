@@ -1,10 +1,12 @@
 import { FETCH_VALUES, FETCH_USER } from "../types";
 import { firebaseValue, authRef, provider } from "../../config/fbConfig";
 
+/* moment.js */
 export const isToday = () => ({
   type: "IS_TODAY"
 });
 
+/* CRUD Firebase */
 export const addValue = newValue => async dispatch => {
   firebaseValue.push().set(newValue);
 };
@@ -28,6 +30,7 @@ export const updateContact = (id, data) => async dispatch => {
     .catch(error => ({ errorCode: error.code, errorMessage: error.message }));
 };
 
+/* Authentification with Firebase */
 export const fetchUser = () => dispatch => {
   authRef.onAuthStateChanged(user => {
     if (user) {
@@ -35,11 +38,13 @@ export const fetchUser = () => dispatch => {
         type: FETCH_USER,
         payload: user
       });
+      localStorage.setItem("userAction", user.uid);
     } else {
       dispatch({
         type: FETCH_USER,
         payload: null
       });
+      localStorage.removeItem("userAction");
     }
   });
 };
@@ -47,7 +52,9 @@ export const fetchUser = () => dispatch => {
 export const signIn = () => dispatch => {
   authRef
     .signInWithPopup(provider)
-    .then(result => {})
+    .then(result => {
+      alert("Вход выполнен успешно !");
+    })
     .catch(error => {
       console.log(error);
     });
@@ -57,7 +64,7 @@ export const signOut = () => dispatch => {
   authRef
     .signOut()
     .then(() => {
-      // Sign-out successful.
+      alert("Ты вышел из аккаунта !");
     })
     .catch(error => {
       console.log(error);
