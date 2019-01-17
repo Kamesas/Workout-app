@@ -23,7 +23,10 @@ class AddForm extends Component {
       date: this.props.getMoment.format("D MM YYYY"),
       time: this.props.getMoment.format("h:mm:ss")
     };
-    this.props.addValue(newValue);
+
+    this.state.numberOfTimes !== ""
+      ? this.props.addValue(newValue)
+      : alert("Введи число!");
     this.setState({ numberOfTimes: "", date: "", time: "" });
   };
 
