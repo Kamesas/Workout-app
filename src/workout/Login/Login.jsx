@@ -13,12 +13,19 @@ class Login extends Component {
     fire
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(u => {})
       .then(u => {
         console.log(u);
       })
       .catch(error => {
-        console.log(error);
+        if (
+          error.message ===
+          "The email address is already in use by another account."
+        ) {
+          alert("Этот имейл уже используется !");
+        } else {
+          alert("Ошибка !");
+          console.log(error.message);
+        }
       });
   };
 

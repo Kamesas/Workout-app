@@ -19,8 +19,6 @@ class ListOfValues extends Component {
   }
 
   render() {
-    //console.log(this.props.auth.uid);
-
     return (
       <div>
         <ul>
@@ -28,7 +26,6 @@ class ListOfValues extends Component {
             _.map(this.props.values, (value, i) => (
               <li key={i} id={i}>
                 {value.numberOfTimes}
-                {`---- ${value.setChild} + ${this.props.auth.uid}`}
               </li>
             ))}
         </ul>

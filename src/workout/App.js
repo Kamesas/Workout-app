@@ -21,7 +21,7 @@ class App extends Component {
         <h3>Workout</h3>
         {this.props.auth ? (
           <div>
-            Alex
+            {this.props.auth.email}
             <button onClick={this.logout}>Logout</button>
             <AddForm />
             <LilstOfValues />
