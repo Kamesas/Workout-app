@@ -1,5 +1,10 @@
 import { FETCH_VALUES, FETCH_USER } from "../types";
-import { firebaseValue, authRef, provider } from "../../config/fbConfig";
+import {
+  firebaseValue,
+  databaseRef,
+  authRef,
+  provider
+} from "../../config/fbConfig";
 
 /* moment.js */
 export const isToday = () => ({
@@ -11,8 +16,22 @@ export const addValue = newValue => async dispatch => {
   firebaseValue.push().set(newValue);
 };
 
-export const fetchValues = () => async dispatch => {
-  firebaseValue.on("value", snapshot => {
+export const addUserValue = newValue => async dispatch => {
+  //console.log(newValue.setChild);
+  databaseRef
+    .child(newValue.setChild)
+    .push()
+    .set(newValue);
+};
+
+// export const fetchValues = () => async dispatch => {
+//   firebaseValue.on("value", snapshot => {
+//     dispatch({ type: FETCH_VALUES, payload: snapshot.val() });
+//   });
+// };
+export const fetchValues = uid => async dispatch => {
+  console.log(uid);
+  databaseRef.child(uid).on("value", snapshot => {
     dispatch({ type: FETCH_VALUES, payload: snapshot.val() });
   });
 };

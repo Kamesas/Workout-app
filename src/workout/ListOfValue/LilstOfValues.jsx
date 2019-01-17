@@ -7,10 +7,20 @@ class ListOfValues extends Component {
   state = {};
 
   componentDidMount() {
-    this.props.fetchValues();
+    if (this.props.auth.uid) {
+      this.props.fetchValues(this.props.auth.uid);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.auth.uid !== this.props.auth.uid) {
+      this.componentDidMount();
+    }
   }
 
   render() {
+    //console.log(this.props.auth.uid);
+
     return (
       <div>
         <ul>
@@ -18,6 +28,7 @@ class ListOfValues extends Component {
             _.map(this.props.values, (value, i) => (
               <li key={i} id={i}>
                 {value.numberOfTimes}
+                {`---- ${value.setChild} + ${this.props.auth.uid}`}
               </li>
             ))}
         </ul>
@@ -28,12 +39,13 @@ class ListOfValues extends Component {
 
 const mapStateToProps = state => {
   return {
-    values: state.values
+    values: state.values,
+    auth: state.auth
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchValues: () => dispatch(fetchValues())
+  fetchValues: uid => dispatch(fetchValues(uid))
 });
 
 export default connect(

@@ -5,7 +5,7 @@ import { FirebaseConfig } from "./FirebaseConfig";
 
 export const fire = firebase.initializeApp(FirebaseConfig);
 
-const databaseRef = firebase.database().ref();
+export const databaseRef = firebase.database().ref();
 export const firebaseValue = databaseRef.child("value");
 
 export const storage = firebase.storage(); //allow read, write: if request.auth != null;

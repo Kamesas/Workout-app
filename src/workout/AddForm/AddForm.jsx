@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addValue, isToday } from "../../store/actions/actions";
+import { addValue, addUserValue, isToday } from "../../store/actions/actions";
 
 class AddForm extends Component {
   state = {
@@ -19,13 +19,14 @@ class AddForm extends Component {
     this.props.isToday();
 
     const newValue = {
+      setChild: this.props.auth.uid,
       numberOfTimes: this.state.numberOfTimes,
       date: this.props.getMoment.format("D MM YYYY"),
-      time: this.props.getMoment.format("h:mm:ss")
+      time: this.props.getMoment.format("H:mm:ss")
     };
 
     this.state.numberOfTimes !== ""
-      ? this.props.addValue(newValue)
+      ? this.props.addUserValue(newValue)
       : alert("Введи число!");
     this.setState({ numberOfTimes: "", date: "", time: "" });
   };
@@ -50,12 +51,14 @@ class AddForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    getMoment: state.getMoment
+    getMoment: state.getMoment,
+    auth: state.auth
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   addValue: newValue => dispatch(addValue(newValue)),
+  addUserValue: newValue => dispatch(addUserValue(newValue)),
   isToday: () => dispatch(isToday())
 });
 
