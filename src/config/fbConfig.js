@@ -1,7 +1,9 @@
 import firebase from "firebase";
 import { FirebaseConfig } from "./FirebaseConfig";
 
-firebase.initializeApp(FirebaseConfig);
+//firebase.initializeApp(FirebaseConfig);
+
+export const fire = firebase.initializeApp(FirebaseConfig);
 
 const databaseRef = firebase.database().ref();
 export const firebaseValue = databaseRef.child("value");
