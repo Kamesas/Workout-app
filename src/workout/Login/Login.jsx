@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { fire } from "../../config/fbConfig";
 
 class Login extends Component {
-  state = { email: "", password: "" };
+  state = { email: "", password: "", userName: "5555" };
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -15,6 +15,15 @@ class Login extends Component {
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(u => {
         console.log(u);
+        const user = fire.auth().currentUser;
+        user.updateProfile({ displayName: this.state.userName }).then(
+          function() {
+            // Update successful.
+          },
+          function(error) {
+            // An error happened.
+          }
+        );
       })
       .catch(error => {
         if (
