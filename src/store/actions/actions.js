@@ -1,4 +1,4 @@
-import { FETCH_VALUES, FETCH_USER } from "../types";
+import { FETCH_VALUES, FETCH_USER, FETCH_ALL_VALUES } from "../types";
 import {
   firebaseValue,
   databaseRef,
@@ -24,15 +24,18 @@ export const addUserValue = newValue => async dispatch => {
     .set(newValue);
 };
 
-// export const fetchValues = () => async dispatch => {
-//   firebaseValue.on("value", snapshot => {
-//     dispatch({ type: FETCH_VALUES, payload: snapshot.val() });
-//   });
-// };
+export const fetchAllValues = () => async dispatch => {
+  databaseRef.on("value", snapshot => {
+    dispatch({ type: FETCH_ALL_VALUES, payload: snapshot.val() });
+    //console.log(snapshot.val());
+  });
+};
+
 export const fetchValues = uid => async dispatch => {
-  console.log(uid);
+  //console.log(uid);
   databaseRef.child(uid).on("value", snapshot => {
     dispatch({ type: FETCH_VALUES, payload: snapshot.val() });
+    //console.log(snapshot.val());
   });
 };
 
