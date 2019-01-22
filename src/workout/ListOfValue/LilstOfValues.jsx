@@ -26,6 +26,7 @@ class ListOfValues extends Component {
     return _.map(this.props.allValues, (value, i) => (
       <li key={i} id={i} onClick={() => this.setState({ person: i })}>
         {i}
+        {console.log(_.map(value[1], (value, i) => value))};
       </li>
     ));
   };
