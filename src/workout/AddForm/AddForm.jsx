@@ -18,8 +18,12 @@ class AddForm extends Component {
 
     this.props.isToday();
 
+    const email = this.props.auth.email.toLowerCase().replace(/\./g, ",");
+    console.log("email", email);
+
     const newValue = {
-      setChild: this.props.auth.uid,
+      //setChild: this.props.auth.uid,
+      setChild: email,
       numberOfTimes: this.state.numberOfTimes,
       date: this.props.getMoment.format("D MM YYYY"),
       time: this.props.getMoment.format("H:mm:ss")

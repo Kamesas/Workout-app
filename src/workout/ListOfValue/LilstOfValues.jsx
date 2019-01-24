@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchValues, fetchAllValues } from "../../store/actions/actions.js";
+import {
+  fetchValues,
+  fetchAllValues,
+  signOut
+} from "../../store/actions/actions.js";
 import _ from "lodash";
 
 class ListOfValues extends Component {
@@ -8,12 +12,30 @@ class ListOfValues extends Component {
     person: null
   };
 
+  escapeEmailAddress = email => {
+    if (!email) return false;
+
+    // Replace '.' (not allowed in a Firebase key) with ',' (not allowed in an email address)
+    email = email.toLowerCase();
+    email = email.replace(/\./g, ",");
+    return email;
+  };
+
   componentDidMount() {
+    ///this.props.auth.emailVerified && this.props.fetchAllValues();
     this.props.fetchAllValues();
 
-    if (this.props.auth.uid) {
-      this.props.fetchValues(this.props.auth.uid);
+    //const email = this.props.auth.email.toLowerCase().replace(/\./g, ",");
+
+    if (this.escapeEmailAddress(this.props.auth.email)) {
+      this.props.fetchValues(this.escapeEmailAddress(this.props.auth.email));
     }
+    // if (this.props.auth.uid && this.props.auth.emailVerified) {
+    //   this.props.fetchValues(this.props.auth.uid);
+    // } else {
+    //   alert("Подтвердите свой email !");
+    //   this.props.signOut();
+    // }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -26,15 +48,14 @@ class ListOfValues extends Component {
     return _.map(this.props.allValues, (value, i) => (
       <li key={i} id={i} onClick={() => this.setState({ person: i })}>
         {i}
-        {console.log(_.map(value[1], (value, i) => value))};
+        {/* console.log(_.map(value[1], (value, i) => value)) */};
       </li>
     ));
   };
 
   render() {
-    // console.log(this.props.auth.uid);
-
     const { person } = this.state;
+    console.log(this.props.allValues[person]);
 
     return (
       <div>
@@ -72,7 +93,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   fetchValues: uid => dispatch(fetchValues(uid)),
-  fetchAllValues: () => dispatch(fetchAllValues())
+  fetchAllValues: () => dispatch(fetchAllValues()),
+  signOut: () => dispatch(signOut())
 });
 
 export default connect(

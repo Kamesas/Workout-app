@@ -21,4 +21,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-//npm i firebase node - sass react - redux redux redux - devtools - extension redux - thunk semantic - ui - css semantic - ui - react
+//npm i firebase node-sass react-redux redux redux-devtools-extension redux-thunk semantic-ui-css semantic-ui- react

@@ -25,6 +25,19 @@ class Login extends Component {
           }
         );
       })
+      // .then(u => {
+      //   console.log(u);
+      //   var user = fire.auth().currentUser;
+
+      //   user
+      //     .sendEmailVerification()
+      //     .then(function() {
+      //       console.log("email send");
+      //     })
+      //     .catch(function(error) {
+      //       console.log("email not send !!!!");
+      //     });
+      // })
       .catch(error => {
         if (
           error.message ===
